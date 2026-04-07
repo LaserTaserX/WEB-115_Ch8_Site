@@ -25,6 +25,10 @@ function pokerCard(cardSuit, cardRank) {
    this.rank = cardRank;
 };
 
+pokerCard.prototype.cardImage = function() {
+   return this.rank + "_" + this.suit + ".png";
+}
+
 function pokerDeck() {
    let suits = ["clubs", "diamonds", "hearts", "spades"];
    let ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace", ]
@@ -36,15 +40,15 @@ function pokerDeck() {
       };
    };
 
+   this.dealTo = function(pokerHand) {
+      let cardsDealt = pokerHand.cards.length;
+      pokerHand.cards = this.cards.splice(0, cardsDealt);
+   };
+
    this.shuffle = function() {
       this.cards.sort(function() {
          return 0.5 - Math.random();
       });
-   };
-
-   this.dealTo = function(pokerHand) {
-      let cardsDealt = pokerHand.cards.length;
-      pokerHand.cards = this.cards.splice(0, cardsDealt);
    };
 };
 

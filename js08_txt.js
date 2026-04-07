@@ -47,6 +47,9 @@ function playDrawPoker() {
                myDeck.shuffle();
                myDeck.dealTo(myHand);
                console.log(myDeck, myHand);
+               // for (let i = 0; i < cardImages.length; i++) {
+               //    cardImages[i].src = myHand.cards[i].cardImage();
+               // }
             }
          } else {
             statusBox.textContent = "Insufficient Funds";
