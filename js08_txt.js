@@ -49,6 +49,15 @@ function playDrawPoker() {
             myDeck.dealTo(myHand);
             for (let i = 0; i < cardImages.length; i++) {
                   cardImages[i].src = myHand.cards[i].cardImage();
+
+                  cardImages[i].onclick = function() {
+                     let cardIndex = Array.from(cardImages).indexOf(this);
+                     if (this.src.includes("cardback.png")) {
+                        this.src = myHand.cards[cardIndex].cardImage();
+                     } else {
+                        this.src = "cardback.png"
+                     }
+                  }
                }
          } else {
             statusBox.textContent = "Insufficient Funds";
@@ -63,7 +72,16 @@ function playDrawPoker() {
       drawButton.disabled = true;         // Turn off the Draw button
       standButton.disabled = true;        // Turn off the Stand Button
       
+      for (let i = 0; i < cardImages.length; i++) {
+         if (cardImages[i].src.includes("cardback.png")) {
+            myHand.replaceCard(i, myDeck);
+            cardImages[i].src = myHand.cards[i].cardImage();
+         }
+      }
 
+      statusBox.textContent = myHand.getHandValue();
+
+      bankBox.value = pokerGame.payBet(statusBox.textContent);
 
    });
    
@@ -75,7 +93,9 @@ function playDrawPoker() {
       drawButton.disabled = true;         // Turn off the Draw button
       standButton.disabled = true;        // Turn off the Stand Button  
 
-    
+      statusBox.textContent = myHand.getHandValue();
+
+      bankBox.value = pokerGame.payBet(statusBox.textContent);    
    });
    
    

@@ -17,6 +17,22 @@ let pokerGame = {
    placeBet: function() {
       this.currentBank -= this.currentBet;
       return this.currentBank;
+   },
+   payBet: function(type) {
+      let pay = 0;
+      switch (type) {
+         case "Royal Flush": pay = 250; break;
+         case "Straight Flush": pay = 50; break;
+         case "Four of a Kind": pay = 25; break;
+         case "Full House": pay = 9; break;
+         case "Flush": pay = 6; break;
+         case "Straight": pay = 4; break;
+         case "Three of a Kind": pay = 3; break;
+         case "Two Pair": pay = 2; break;
+         case "Jacks or Better": pay = 1; break;
+      }
+      this.currentBank += pay * this.currentBet;
+      return this.currentBank;
    }
 };
 
@@ -56,35 +72,13 @@ function pokerHand(handLength) {
    this.cards = new Array(handLength)
 };
 
+pokerHand.prototype.replaceCard = function(index, pokerDeck) {
+   this.cards[index] = pokerDeck.cards.shift();
+}
 
+pokerHand.prototype.getHandValue = function() {
+   return handType(this);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
    /* ------------------------------------------------+
    | The handType() function returns a text string of |
    | the type of hand held by 5-card poker hand.      |
@@ -125,10 +119,10 @@ function pokerHand(handLength) {
       /* Function to test for the presence of a straight in which the
          rank value of the cards can be placed in sequential order */
       function hasStraight() {
-         pokerHand.cards.sort(function(a, b) {
+         let sortedCards = pokerHand.cards.slice().sort(function(a, b) {
             return a.rankValue - b.rankValue;
          });
-         return pokerHand.cards.every(function(card, i, cards) {
+         return sortedCards.every(function(card, i, cards) {
             if (i > 0) {
                return (cards[i].rankValue - cards[i-1].rankValue === 1);
             } else {
@@ -198,6 +192,39 @@ function pokerHand(handLength) {
    /* ------------------------------------------------+
    |             End of the  handType() function      |
    +-------------------------------------------------*/   
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   
  
  
  
