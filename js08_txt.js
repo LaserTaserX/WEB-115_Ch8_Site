@@ -45,15 +45,14 @@ function playDrawPoker() {
             if (myDeck.cards.length < 10) {
                myDeck = new pokerDeck();
                myDeck.shuffle();
-               myDeck.dealTo(myHand);
-               console.log(myDeck, myHand);
-               // for (let i = 0; i < cardImages.length; i++) {
-               //    cardImages[i].src = myHand.cards[i].cardImage();
-               // }
             }
+            myDeck.dealTo(myHand);
+            for (let i = 0; i < cardImages.length; i++) {
+                  cardImages[i].src = myHand.cards[i].cardImage();
+               }
          } else {
             statusBox.textContent = "Insufficient Funds";
-         }            
+         }         
    });
    
    
